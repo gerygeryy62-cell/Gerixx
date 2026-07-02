@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reel Deck — Media Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="deck">
+
+  <header class="faceplate-top">
+    <div class="brand">
+      <span class="brand-mark">◈</span>
+      <div class="brand-text">
+        <h1>REEL&nbsp;DECK</h1>
+        <p class="brand-sub">MEDIA CONSOLE &nbsp;·&nbsp; MODEL RD-100</p>
+      </div>
+    </div>
+    <div class="power-cluster">
+      <span class="power-led on" aria-hidden="true"></span>
+      <span class="power-label">POWER</span>
+    </div>
+  </header>
+
+  <main class="panel">
+
+    <!-- Slot A: URL intake (stubbed on the backend, on purpose) -->
+    <section class="module" aria-labelledby="slotA-title">
+      <div class="module-label">
+        <span class="tag">SLOT&nbsp;A</span>
+        <h2 id="slotA-title">Platform Link Intake</h2>
+      </div>
+      <div class="module-body">
+        <label class="field-label" for="urlInput">Paste a source URL</label>
+        <div class="input-row">
+          <input id="urlInput" type="text" placeholder="https://..." autocomplete="off" />
+          <button id="urlSubmit" class="btn btn-amber">LOAD</button>
+        </div>
+        <p id="urlNote" class="note">
+          Direct platform ripping isn't wired up here — see the note under Slot B for why,
+          and use Slot B to bring your own file instead.
+        </p>
+      </div>
+    </section>
+
+    <!-- Slot B: file upload + conversion (this is the real, working part) -->
+    <section class="module" aria-labelledby="slotB-title">
+      <div class="module-label">
+        <span class="tag">SLOT&nbsp;B</span>
+        <h2 id="slotB-title">Load Reel (Upload &amp; Convert)</h2>
+      </div>
+      <div class="module-body">
+
+        <div id="dropZone" class="drop-zone">
+          <input type="file" id="fileInput" accept="audio/*,video/*" hidden />
+          <p class="drop-copy">Drop a file here, or <button id="browseBtn" class="link-btn">browse your reels</button></p>
+          <p id="fileName" class="file-name"></p>
+        </div>
+
+        <div class="format-block">
+          <p class="field-label">Output format</p>
+          <div class="switch-row" id="formatSwitches">
+            <button class="toggle-switch active" data-format="mp4" data-kind="video">MP4</button>
+            <button class="toggle-switch" data-format="webm" data-kind="video">WEBM</button>
+            <button class="toggle-switch" data-format="mp3" data-kind="audio">MP3</button>
+            <button class="toggle-switch" data-format="wav" data-kind="audio">WAV</button>
+            <button class="toggle-switch" data-format="aac" data-kind="audio">AAC</button>
+            <button class="toggle-switch" data-format="ogg" data-kind="audio">OGG</button>
+          </div>
+        </div>
+
+        <button id="convertBtn" class="btn btn-green" disabled>▶ &nbsp;RUN CONVERSION</button>
+
+        <div class="vu-block" id="vuBlock" hidden>
+          <div class="vu-meter">
+            <div class="vu-fill" id="vuFill"></div>
+            <div class="vu-ticks"></div>
+          </div>
+          <div class="vu-readout">
+            <span id="vuStatus">STANDBY</span>
+            <span id="vuPercent">0%</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Output tray -->
+    <section class="module tray" aria-labelledby="trayTitle">
+      <div class="module-label">
+        <span class="tag">TRAY</span>
+        <h2 id="trayTitle">Finished Reels</h2>
+      </div>
+      <ul id="outputList" class="output-list">
+        <li class="empty-row">Nothing on the tray yet.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="faceplate-bottom">
+    <p>FOR MEDIA YOU HAVE THE RIGHTS TO CONVERT ONLY</p>
+  </footer>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
